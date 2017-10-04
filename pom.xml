@@ -28,7 +28,10 @@
         <assertj.version>3.8.0</assertj.version>
         <cucumber.version>1.2.5</cucumber.version>
         <logback.version>1.2.3</logback.version>
+        <h2.version>1.4.196</h2.version>
         <spring.cloud.version>Camden.SR7</spring.cloud.version>
+        <hibernate.version>5.2.11.Final</hibernate.version>
+        <postgresql.version>42.1.4</postgresql.version>
     </properties>
 
     <dependencies>
@@ -92,6 +95,13 @@
                 <version>${cucumber.version}</version>
                 <scope>test</scope>
             </dependency>
+            <!-- Banco in-memory para testes -->
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>${h2.version}</version>
+                <scope>test</scope>
+            </dependency>
 
             <!-- Dependências de Compilação -->
             <!-- Spring Cloud -->
@@ -101,6 +111,18 @@
                 <version>${spring.cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <!-- Hibernate -->
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-core</artifactId>
+                <version>${hibernate.version}</version>
+            </dependency>
+            <!-- Banco PostgreSQL -->
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgresql.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

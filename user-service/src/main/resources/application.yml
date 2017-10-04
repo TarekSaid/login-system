@@ -1,8 +1,27 @@
+spring:
+  profiles:
+    active: development
+---
 server:
   port: 8181
 spring:
+  profiles: development
   application:
     name: user-service
 security:
   user:
+    password: password
+---
+spring:
+  profiles: test
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create-drop
+  datasource:
+    url: jdbc:h2:mem:users-test
+    username: sa
+security:
+  user:
+    name: user
     password: password
