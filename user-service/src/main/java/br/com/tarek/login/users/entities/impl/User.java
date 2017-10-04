@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
+@Table(name = "users")
 public class User extends BaseEntity {
 
     private static final long serialVersionUID = 2669684290944555176L;
@@ -27,9 +28,9 @@ public class User extends BaseEntity {
     @Column
     private boolean enabled;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
-            name = "users_roles",
+            name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Collection<Role> roles;
@@ -47,6 +48,13 @@ public class User extends BaseEntity {
      */
     public User(String username) {
         this.username = username;
+    }
+
+    public User(String username, String password, boolean enabled, Collection<Role> roles) {
+        this(username);
+        this.password = password;
+        this.enabled = enabled;
+        this.roles = roles;
     }
 
     public Long getId() {
