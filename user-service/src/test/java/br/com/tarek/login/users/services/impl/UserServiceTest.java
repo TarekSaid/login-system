@@ -21,7 +21,7 @@ public class UserServiceTest {
     private UserRepository userRepository;
 
     @Test(dataProviderClass = UserDataProvider.class, dataProvider = "usernames")
-    public void getUserByEmailShouldCallRepository(String username) {
+    public void findUserShouldCallRepository(String username) {
         userService.findUser(username);
 
         new Verifications() {{
@@ -30,7 +30,7 @@ public class UserServiceTest {
     }
 
     @Test(dataProviderClass = UserDataProvider.class, dataProvider = "users")
-    public void getUserByEmailShouldReturnUser(User user) {
+    public void findUserShouldReturnUser(User user) {
         new Expectations() {{
             userRepository.findByUsername(anyString);
             result = user;
@@ -40,7 +40,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void getUserByEmailShouldReturnNullWhenNotFound() {
+    public void findUserShouldReturnNullWhenNotFound() {
         new Expectations() {{
             userRepository.findByUsername(anyString);
             result = new EmptyResultDataAccessException(1);
