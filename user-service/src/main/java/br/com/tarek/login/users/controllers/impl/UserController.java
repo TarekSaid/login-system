@@ -24,4 +24,10 @@ public class UserController implements IUserController {
                 .ofNullable(userService.findUser(principal.getName()))
                 .orElseThrow(() -> new UserNotFoundException("User does not exist."));
     }
+
+    @Override
+    @RequestMapping("/user")
+    public Principal getLoggedUser(Principal user) {
+        return user;
+    }
 }

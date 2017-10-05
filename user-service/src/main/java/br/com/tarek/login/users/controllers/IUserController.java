@@ -7,4 +7,6 @@ import java.security.Principal;
 public interface IUserController {
 
     User findUser(Principal principal);
+
+    Principal getLoggedUser(Principal user);
 }

@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 
 import java.security.Principal;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 
 @Test
 public class UserControllerTest {
@@ -49,5 +49,10 @@ public class UserControllerTest {
         }};
 
         userController.findUser(principal);
+    }
+
+    @Test
+    public void getLoggedUserShouldReturnUser(@Mocked Principal user) {
+        assertThat(userController.getLoggedUser(user)).isEqualTo(user);
     }
 }
