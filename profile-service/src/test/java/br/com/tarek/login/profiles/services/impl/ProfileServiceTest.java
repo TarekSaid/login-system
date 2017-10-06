@@ -1,5 +1,6 @@
 package br.com.tarek.login.profiles.services.impl;
 
+import br.com.tarek.login.profiles.resources.UserResource;
 import br.com.tarek.login.profiles.entities.impl.Profile;
 import br.com.tarek.login.profiles.entities.impl.User;
 import br.com.tarek.login.profiles.exceptions.impl.ProfileNotFoundException;
@@ -10,7 +11,6 @@ import mockit.Expectations;
 import mockit.Injectable;
 import mockit.Tested;
 import mockit.Verifications;
-import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.testng.annotations.Test;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
@@ -22,7 +22,7 @@ public class ProfileServiceTest {
     private ProfileService profileService;
 
     @Injectable
-    private OAuth2RestTemplate restTemplate;
+    private UserResource userResource;
 
     @Injectable
     private ProfileRepository profileRepository;
@@ -31,14 +31,14 @@ public class ProfileServiceTest {
         profileService.getProfile();
 
         new Verifications() {{
-            restTemplate.getForObject("http://user-service/me", User.class);
+            userResource.getLoggedUser();
         }};
     }
 
     @Test(expectedExceptions = UserNotFoundException.class)
     public void getProfileShouldThrowErrorWhenUserNotFound() {
         new Expectations() {{
-            restTemplate.getForObject("http://user-service/me", User.class);
+            userResource.getLoggedUser();
             result = null;
         }};
 

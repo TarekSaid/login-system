@@ -13,11 +13,11 @@ public class ProfileDataProvider {
     public Iterator<Object[]> getProfiles() {
         List<Object[]> profiles = new ArrayList<>();
 
-        profiles.add(new Object[] {new Profile()});
-        profiles.add(new Object[] {new Profile(null, null, null)});
-        profiles.add(new Object[] {new Profile("Test", null, null)});
-        profiles.add(new Object[] {new Profile("", "", "")});
-        profiles.add(new Object[] {new Profile("Name", "Business", "Website")});
+        profiles.add(new Object[]{new Profile()});
+        profiles.add(new Object[]{new Profile(null, null, null)});
+        profiles.add(new Object[]{new Profile("Test", null, null)});
+        profiles.add(new Object[]{new Profile("", "", "")});
+        profiles.add(new Object[]{new Profile("Name", "Business", "Website")});
 
         return profiles.iterator();
     }

@@ -4,5 +4,5 @@ import cucumber.api.CucumberOptions;
 import cucumber.api.testng.AbstractTestNGCucumberTests;
 
 @CucumberOptions(format = "pretty")
-public class IntegrationTests extends AbstractTestNGCucumberTests {
+public class ProfileIntegrationTests extends AbstractTestNGCucumberTests {
 }

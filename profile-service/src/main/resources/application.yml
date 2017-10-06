@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: profile-service
   profiles:
     active: development
 ---
@@ -6,8 +8,21 @@ server:
   port: 8182
 spring:
   profiles: development
-  application:
-    name: profile-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/login-system
+    username: loginuser
+    password: loginpass
+  oauth2:
+    client:
+      client-id: webClient
+      client-secret: secret
+      access-token-uri: http://localhost:8182/oauth/access_token
+      user-authorization-uri: http://localhost:8182/oauth/authorize
+      grant-type: password
+    resource:
+      jwt:
+        key-value: 45eebbdae9b69253cd56744330384d8bb7d38bb40b9d1a1cfa5b29b3c73d4c46
+        filter-order: 3
 ---
 server:
   port: 8182
@@ -17,9 +32,6 @@ spring:
     url: jdbc:h2:mem:profile-test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     username: sa
 security:
-  basic:
-    enabled: false
-  ignored: /**
   user:
     name: user
     password: password
@@ -32,6 +44,4 @@ security:
     resource:
       jwt:
         key-value: 45eebbdae9b69253cd56744330384d8bb7d38bb40b9d1a1cfa5b29b3c73d4c46
-management:
-  security:
-    enabled: false
+        filter-order: 3
