@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: user-service
   profiles:
     active: development
 ---
@@ -6,16 +8,22 @@ server:
   port: 8181
 spring:
   profiles: development
-  application:
-    name: user-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/login-system
+    username: loginuser
+    password: loginpass
 security:
-  user:
-    password: password
+  oauth2:
+    resource:
+      filter-order: 3
 ---
 spring:
   profiles: test
+  jpa:
+    generate-ddl: true
+    hibernate-ddl-auto: create-drop
   datasource:
-    url: jdbc:h2:mem:user-test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:mem:user-test;DB_CLOSE_DELAY=-1
     username: sa
 security:
   user:

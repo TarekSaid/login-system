@@ -26,7 +26,7 @@ public class UserSteps extends AbstractTestNGSpringContextTests implements En {
 
     private String password;
 
-    private User loggedUser;
+    private User user;
 
     public UserSteps() {
 
@@ -36,11 +36,11 @@ public class UserSteps extends AbstractTestNGSpringContextTests implements En {
         });
 
         When("^I fetch my information$", () -> {
-            this.loggedUser = restTemplate.withBasicAuth(username, password).getForObject("/me", User.class);
+            this.user = restTemplate.withBasicAuth(username, password).getForObject("/me", User.class);
         });
 
         Then("^I should see the username \"([^\"]*)\"$", (String expectedUser) -> {
-            assertThat(loggedUser.getUsername()).isEqualTo(expectedUser);
+            assertThat(user.getUsername()).isEqualTo(expectedUser);
         });
     }
 }
