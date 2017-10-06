@@ -18,6 +18,7 @@
     <modules>
         <module>user-service</module>
         <module>profile-service</module>
+        <module>discovery-service</module>
     </modules>
 
     <properties>

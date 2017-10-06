@@ -34,6 +34,10 @@
         </dependency>
 
         <!-- Dependências de Compilação -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-eureka</artifactId>
+        </dependency>
         <!-- Spring Web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
