@@ -66,4 +66,5 @@ Há ainda alguns pontos que podem ser melhorados na API:
 1. Não consegui implementar um JdbcTokenStore, por isso optei pela JWT Token Store;
 2. Não consegui fazer o teste integrado do profile-service funcionar com o Feign Client, apenas os testes unitários;
 3. Não tive tempo de implementar um serviço de configuração (spring-boot-starter-config) ue separasse as configurações do código;
-4. No tive tempo de implementar um cliente de demonstração com o angular-js.
+4. Não tive tempo de implementar um cliente de demonstração com o angular-js.
+5. Não tive tempo de criar os arquivos Dockerfile para criar imagens do Docker, nem de criar um arquivo docker-compose.yml. Isso iria facilitar o processo de execução da API, pois bastaria ter o Docker Compose instalado e executar o arquivo.
