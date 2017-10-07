@@ -1,4 +1,4 @@
-package br.com.tarek.login.profiles.config;
+package br.com.tarek.login.proxy.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

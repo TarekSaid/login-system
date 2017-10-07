@@ -1,16 +1,15 @@
 package br.com.tarek.login.profiles.services.impl;
 
-import br.com.tarek.login.profiles.resources.UserResource;
 import br.com.tarek.login.profiles.entities.impl.Profile;
 import br.com.tarek.login.profiles.entities.impl.User;
-import br.com.tarek.login.profiles.exceptions.impl.ProfileNotFoundException;
-import br.com.tarek.login.profiles.exceptions.impl.UserNotFoundException;
 import br.com.tarek.login.profiles.providers.ProfileDataProvider;
 import br.com.tarek.login.profiles.repositories.ProfileRepository;
 import mockit.Expectations;
 import mockit.Injectable;
 import mockit.Tested;
 import mockit.Verifications;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
+import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.testng.annotations.Test;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
@@ -22,7 +21,7 @@ public class ProfileServiceTest {
     private ProfileService profileService;
 
     @Injectable
-    private UserResource userResource;
+    private OAuth2RestTemplate restTemplate;
 
     @Injectable
     private ProfileRepository profileRepository;
@@ -31,25 +30,21 @@ public class ProfileServiceTest {
         profileService.getProfile();
 
         new Verifications() {{
-            userResource.getLoggedUser();
+            restTemplate.getForObject("http://user-service/me", User.class);
         }};
     }
 
-    @Test(expectedExceptions = UserNotFoundException.class)
-    public void getProfileShouldThrowErrorWhenUserNotFound() {
+    @Test(dataProviderClass = ProfileDataProvider.class, dataProvider = "users")
+    public void getProfileShouldCallRepository(User user) {
         new Expectations() {{
-            userResource.getLoggedUser();
-            result = null;
+            restTemplate.getForObject("http://user-service/me", User.class);
+            result = user;
         }};
 
-        profileService.getProfile();
-    }
-
-    public void getProfileShouldCallRepository() {
         profileService.getProfile();
 
         new Verifications() {{
-            profileRepository.findByUserId(anyLong);
+            profileRepository.findByUserId(user.getId());
         }};
     }
 
@@ -63,13 +58,12 @@ public class ProfileServiceTest {
         assertThat(profileService.getProfile()).isEqualTo(profile);
     }
 
-    @Test(expectedExceptions = ProfileNotFoundException.class)
-    public void getProfileShouldThrowErrorWhenProfileNotFound() {
+    public void getProfileShouldReturnNullWhenProfileNotFound() {
         new Expectations() {{
             profileRepository.findByUserId(anyLong);
-            result = null;
+            result = new IncorrectResultSizeDataAccessException(1);
         }};
 
-        profileService.getProfile();
+        assertThat(profileService.getProfile()).isNull();
     }
 }

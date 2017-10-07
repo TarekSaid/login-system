@@ -1,3 +1,4 @@
+@ignored
 Feature: Profile Operations
   As a user
   In order to review my information

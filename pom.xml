@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -19,6 +19,7 @@
         <module>user-service</module>
         <module>profile-service</module>
         <module>discovery-service</module>
+        <module>proxy-service</module>
     </modules>
 
     <properties>
@@ -34,6 +35,7 @@
         <spring.cloud.version>Camden.SR7</spring.cloud.version>
         <hibernate.version>5.2.11.Final</hibernate.version>
         <postgresql.version>42.1.4</postgresql.version>
+        <flyway.version>4.2.0</flyway.version>
     </properties>
 
     <dependencies>
@@ -125,6 +127,12 @@
                 <groupId>org.postgresql</groupId>
                 <artifactId>postgresql</artifactId>
                 <version>${postgresql.version}</version>
+            </dependency>
+            <!-- Flyway para migrações de banco de dados -->
+            <dependency>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-core</artifactId>
+                <version>${flyway.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

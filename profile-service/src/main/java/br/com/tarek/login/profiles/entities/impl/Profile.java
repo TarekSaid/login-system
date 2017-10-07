@@ -13,7 +13,7 @@ public class Profile implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(name = "user_id")
+    @Column(name = "user_id", unique = true, nullable = false)
     private Long userId;
 
     @Column

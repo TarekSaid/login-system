@@ -10,7 +10,7 @@ import mockit.Tested;
 import mockit.Verifications;
 import org.testng.annotations.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 
 public class ProfileControllerTest {
 

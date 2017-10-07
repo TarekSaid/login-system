@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 
 import java.security.Principal;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 
 @Test
 public class UserControllerTest {

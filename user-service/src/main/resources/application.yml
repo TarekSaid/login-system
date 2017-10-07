@@ -1,8 +1,8 @@
-spring:
-  application:
-    name: user-service
-  profiles:
-    active: development
+  spring:
+    application:
+      name: user-service
+    profiles:
+      active: development
 ---
 server:
   port: 8181
@@ -16,6 +16,9 @@ security:
   oauth2:
     resource:
       filter-order: 3
+flyway:
+  table: users_schema_version
+  baseline-on-migrate: true
 ---
 spring:
   profiles: test

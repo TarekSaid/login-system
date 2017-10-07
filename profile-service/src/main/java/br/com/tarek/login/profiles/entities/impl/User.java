@@ -14,6 +14,21 @@ public class User {
 
     private Long modifiedAt;
 
+    /**
+     * Construtor padrão
+     */
+    public User() {
+    }
+
+    /**
+     * Construtor para testes
+     *
+     * @param id
+     */
+    public User(Long id) {
+        this.id = id;
+    }
+
     public Long getId() {
         return id;
     }

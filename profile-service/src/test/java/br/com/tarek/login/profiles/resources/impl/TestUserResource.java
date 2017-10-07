@@ -2,7 +2,6 @@ package br.com.tarek.login.profiles.resources.impl;
 
 import br.com.tarek.login.profiles.entities.impl.User;
 import br.com.tarek.login.profiles.resources.UserResource;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 

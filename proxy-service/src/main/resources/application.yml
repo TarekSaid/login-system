@@ -1,0 +1,20 @@
+spring:
+  profiles:
+    active: development
+---
+server:
+  port: 9999
+spring:
+  profiles: development
+  application:
+    name: proxy-service
+zuul:
+  ignored-services: '*'
+  routes:
+    user-service: /user/**
+    profile-service: /profile/**
+security:
+  oauth:
+    resource:
+      token-info-uri: http://localhost:8181/user
+      user-info-uri: http://localhost:8181/
