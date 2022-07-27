@@ -5,10 +5,20 @@ O sistema de login é uma API de login simples que demonstra a separação entre
 ## Execução
 a API está separada em 4 serviços diferentes: discovery-service, user-service, profile-service e proxy-service.
 
-É necessário ter instalado o PostgreSQL na porta padrão com um usuário loginuser, senha loginpass e um banco de dados chamado login-system.
+### postgres
+
+É necessário ter instalado o PostgreSQL 13.7 na porta padrão com um usuário loginuser, senha loginpass e um banco de dados chamado login-system.
 As tabelas e dados do banco serão criados automaticamente através das migrações do FlyWay.
 
-Ao compilar o projeto usando `mvn clean install` os testes unitários e de integração serão automaticamente executados.
+**Via Docker:**
+
+`docker run --name login-db -e POSTGRES_USER=loginuser -e POSTGRES_PASSWORD=loginpass -e POSTGRES_DB=login-system -p 5432:5432 -d postgres:13.7-alpine`
+
+### compilação
+
+Ao compilar o projeto usando `mvn clean install` a partir da pasta raiz, os testes unitários e de integração serão automaticamente executados.
+
+### ordem de execução
 
 Após a compilação, basta executar os serviços através do `java -jar [nome-do-serviço].jar`, na seguinte ordem:
 
@@ -17,7 +27,7 @@ Após a compilação, basta executar os serviços através do `java -jar [nome-d
 3. profile-service
 4. proxy-service
 
-## user-service
+## user-service (obter token de autorização)
 
 O user-service é o AuthorizationServer, ou seja, um serviço de backend que autentica e devolve o token para os clientes. Para obter um token de autorização, é necessário chamar o endpoint /oauth/token, conforme o exemplo abaixo:
 
@@ -35,14 +45,14 @@ Após a autenticação, é possível acessar os recursos protegidos usando esse 
 
 O user-service também tem um recurso protegido: o usuário logado. Além dos endpoints do OAuth2, ele expõe dois endpoints para o usuário: `/me`, que busca o usuário no banco, e `/user`, que retorna o usuário logado. Isso é útil para recursos (como, por exemplo, o de perfil) onde o usuário não possa acessar informações de outros.
 
-## profile-service
+## profile-service (informações do perfil do usuário)
 
 O profile-service é um recurso protegido, que precisa de autenticação. Ele expõe o endpoint `/`, que busca o perfil do usuário. Para consultar o usuário logado, o profile usa um Feign Client, apontando para `http://user-service/me`. Através do serviço de descoberta de serviços, o discovery-service, o profile-service consegue receber o usuário logado e usar seu id para trazer o perfil atrelado:
 
 `curl -H "Authorization: Bearer $token" -H 'Content-Type: application/json' http://localhost:8182/`
 `{"id":1,"name":"Teste LTDA","businessType":"Loja Online","website":"www.teste.com.br"}`
 
-## discovery-service
+## discovery-service (descoberta de serviços)
 
 O discovery-service é um serviço backend para a descoberta de serviços, usando o Eureka. Ao criar um novo serviço, ele se registra no discovery-service, o que permite:
 
@@ -50,7 +60,7 @@ O discovery-service é um serviço backend para a descoberta de serviços, usand
 2. Chamar um serviço registrado via Feign Client;
 3. Mapear o nome do serviço no Zuul, como servidor de proxy.
 
-## proxy-service
+## proxy-service (proxy reverso)
 
 O proxy-service é outro serviço backend, que usa o Netflix Zuul que configura um caminho único para acessar os diferentes serviços. Ele sobe na porta 9999.
 
